@@ -63,7 +63,7 @@ class StreamPhysicalGlobalWindowAggregate(
   extends SingleRel(cluster, traitSet, inputRel)
   with StreamPhysicalRel {
 
-  private lazy val aggInfoList = AggregateUtil.deriveWindowAggregateInfoList(
+  private lazy val aggInfoList = AggregateUtil.deriveStreamWindowAggregateInfoList(
     FlinkTypeFactory.toLogicalRowType(inputRowTypeOfLocalAgg),
     aggCalls,
     windowing.getWindow,
@@ -133,6 +133,7 @@ class StreamPhysicalGlobalWindowAggregate(
       windowing,
       namedWindowProperties.toArray,
       InputProperty.DEFAULT,
+      FlinkTypeFactory.toLogicalRowType(inputRowTypeOfLocalAgg),
       FlinkTypeFactory.toLogicalRowType(getRowType),
       getRelDetailedDescription
     )
